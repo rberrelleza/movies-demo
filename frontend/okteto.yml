@@ -1,0 +1,5 @@
+name: movies-frontend
+image: okteto/movies-frontend:dev
+workdir: /src
+forward:
+  - 8080:80

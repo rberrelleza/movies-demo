@@ -1,0 +1,96 @@
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: movies-api
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: movies-api
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movies-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: movies-api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: movies-api
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: api
+          image: okteto/movies-api
+          imagePullPolicy: Always
+          env:
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: mongodb-password
+            - name: MONGODB_USERNAME
+              value: okteto
+            - name: MONGODB_DATABASE
+              value: okteto
+            - name: MONGODB_HOST
+              value: mongodb
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 8080
+          resources:
+            limits:
+              cpu: 1
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: movies-job
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: movies-frontend
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: movies
+          image: okteto/movies-api
+          command:
+            - yarn
+            - load
+          imagePullPolicy: Always
+          env:
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb
+                  key: mongodb-password
+            - name: MONGODB_USERNAME
+              value: okteto
+            - name: MONGODB_DATABASE
+              value: okteto
+            - name: MONGODB_HOST
+              value: mongodb
+          resources:
+            {}

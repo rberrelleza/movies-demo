@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb
+type: Opaque
+data:
+  mongodb-root-password: "QnhRMkxjcXVsMQ=="
+  mongodb-password:  "b2t0ZXRv"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+spec:
+  type: ClusterIP
+  ports:
+  - name: mongodb
+    port: 27017
+    targetPort: mongodb
+  selector:
+    app: mongodb
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      securityContext:
+        fsGroup: 1001      
+      initContainers:
+      containers:
+      - name: mongodb
+        image: docker.io/bitnami/mongodb:4.0.12-debian-9-r43
+        imagePullPolicy: "IfNotPresent"
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+        env:
+        - name: MONGODB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb
+              key: mongodb-password
+        - name: MONGODB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb
+              key: mongodb-root-password
+        - name: MONGODB_USERNAME
+          value: "okteto"
+        - name: MONGODB_SYSTEM_LOG_VERBOSITY
+          value: "0"
+        - name: MONGODB_DISABLE_SYSTEM_LOG
+          value: "no"
+        - name: MONGODB_DATABASE
+          value: "okteto"
+        - name: MONGODB_ENABLE_IPV6
+          value: "no"
+        - name: MONGODB_ENABLE_DIRECTORY_PER_DB
+          value: "no"
+        ports:
+        - name: mongodb
+          containerPort: 27017
+        volumeMounts:
+        - name: data
+          mountPath: /bitnami/mongodb
+          subPath: 
+        resources:
+          {}
+      volumes:
+      - name: data
+        emptyDir: {}
