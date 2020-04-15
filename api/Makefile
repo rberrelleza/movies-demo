@@ -1,3 +1,3 @@
 .PHONY: push
 push:
-	okteto build -t okteto/movies-api .
+	okteto build -t ramiro/movies-api .

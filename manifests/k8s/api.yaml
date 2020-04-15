@@ -32,7 +32,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: api
-          image: okteto/movies-api
+          image: ramiro/movies-api
           imagePullPolicy: Always
           env:
             - name: MONGODB_PASSWORD
@@ -75,7 +75,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: movies
-          image: okteto/movies-api
+          image: ramiro/movies-api
           command:
             - yarn
             - load
@@ -92,5 +92,3 @@ spec:
               value: okteto
             - name: MONGODB_HOST
               value: mongodb
-          resources:
-            {}

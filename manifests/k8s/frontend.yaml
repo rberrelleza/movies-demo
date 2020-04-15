@@ -31,7 +31,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: frontend
-          image: okteto/movies-frontend
+          image: ramiro/movies-frontend
           imagePullPolicy: Always
           ports:
             - name: http

@@ -1,5 +1,5 @@
 name: movies-api
-image: okteto/movies-api
+image: ramiro/movies-api
 workdir: /src
 command: ["bash"]
 forward:
