@@ -1,11 +1,11 @@
 # Movies  app
 
-This example shows how to leverage [Okteto](https://github.com/okteto/okteto) to develop a Node + React Sample App  with Okteto. This sample includes manifests on different formats, such as Kubernetes Manifests, Helm and [Okteto Stacks](https://github.com/okteto/stacks)
+This example shows how to leverage [Okteto](https://github.com/okteto/okteto) to develop a micro services-based application . This repo includes manifests on different formats, such as Kubernetes Manifests, Helm and [Okteto Stacks](https://github.com/okteto/stacks)
 
-The app has 4 components:
+The application has 4 components:
 
 - A *React* based front-end, using [webpack](https://webpack.js.org) as bundler and *hot-reload server* for development.
-- A very simple Node.js API using [Express](https://expressjs.com).
+- A  Node.js API using [Express](https://expressjs.com).
 - A Node.js job to load the initial data into MongoDB.
 - A [MongoDB](https://www.mongodb.com) database.
 
