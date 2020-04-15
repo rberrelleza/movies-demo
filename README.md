@@ -15,11 +15,13 @@ Install the Okteto CLI by following our [installation guides](https://github.com
 
 ## Step 2: Launch the application
 
+Kubernetes manifests
+
 ```console
 kubectl apply -f manifests/k8s
 ```
 
-Or
+Okteto Stack
 
 ```console
 okteto stack deploy -f manifests/stacks/okteto-stack.yaml
