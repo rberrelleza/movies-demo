@@ -15,7 +15,7 @@ jobs:
         token: ${{ secrets.OKTETO_TOKEN }}
     
     - name: Deploy stack
-      uses: okteto/actions/create-stack@b29102b4715de7795841c19fe9fd6a1006f6a60f
+      uses: okteto/actions/deploy-stack@b29102b4715de7795841c19fe9fd6a1006f6a60f
       with:
         build: "true"
         name: "movies-${{ github.event.number }}"
