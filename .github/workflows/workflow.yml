@@ -19,7 +19,6 @@ jobs:
       with:
         build: "true"
         name: "movies-${{ github.event.number }}"
-        working-dir: "manifests"
    
     - name: comment PR
       uses: unsplash/comment-on-pr@master
