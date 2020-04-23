@@ -1,0 +1,24 @@
+on: 
+  pull_request: 
+    types:
+      - closed
+
+name: delete-preview
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+
+    - uses: okteto/actions/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+    
+    - uses: okteto/actions/namespace@master
+    
+    - name: Destroy stack
+      uses: okteto/actions/destroy-stack@6c63f0ccb7df32b695cb8ffc8ae1418a5d6bdbd0
+      with:
+        name: "movies-${{ github.event.number }}"

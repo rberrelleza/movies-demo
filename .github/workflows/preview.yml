@@ -19,7 +19,7 @@ jobs:
     - uses: okteto/actions/namespace@master
     
     - name: Deploy stack
-      uses: okteto/actions/deploy-stack@b29102b4715de7795841c19fe9fd6a1006f6a60f
+      uses: okteto/actions/deploy-stack@6c63f0ccb7df32b695cb8ffc8ae1418a5d6bdbd0
       with:
         build: "true"
         name: "movies-${{ github.event.number }}"
