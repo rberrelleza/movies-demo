@@ -27,7 +27,7 @@ jobs:
         name: "movies-${{ github.event.number }}"
    
     - name: comment PR
-      uses: unsplash/comment-on-pr@1.2.0
+      uses: unsplash/comment-on-pr@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
