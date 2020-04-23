@@ -17,8 +17,6 @@ jobs:
         token: ${{ secrets.OKTETO_TOKEN }}
     
     - uses: okteto/actions/namespace@master
-      with:
-        token: ${{ secrets.OKTETO_TOKEN }}
     
     - name: Deploy stack
       uses: okteto/actions/deploy-stack@b29102b4715de7795841c19fe9fd6a1006f6a60f
@@ -27,10 +25,10 @@ jobs:
         name: "movies-${{ github.event.number }}"
    
     - name: comment PR
-      uses: unsplash/comment-on-pr@master
+      uses: unsplash/comment-on-pr@v1.2.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        msg: "Preview environment available at https://movies-${{ github.event.number }}-rberrelleza.cloud.okteto.net"
+        msg: "Review the changes live at https://movies-rberrelleza.cloud.okteto.net"
 
     
