@@ -1,0 +1,30 @@
+on: 
+  pull_request:
+    branches:
+      - master
+
+name: preview
+
+jobs:
+  devflow:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - uses: okteto/actions/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+    
+    - name: Deploy stack
+      uses: okteto/actions/create-stack@b29102b4715de7795841c19fe9fd6a1006f6a60f
+      with:
+        build: "true"
+        name: "movies-${{ github.event.number }}"
+   
+    - name: comment PR
+      uses: unsplash/comment-on-pr@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        msg: "Preview environment available at https://movies-${{ github.event.number }}-rberrelleza.cloud.okteto.net"
+
+    
