@@ -6,10 +6,12 @@ on:
 name: preview
 
 jobs:
-  devflow:
+  preview:
     runs-on: ubuntu-latest
     steps:
-    
+    - name: checkout
+      uses: actions/checkout@master
+
     - uses: okteto/actions/login@master
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
