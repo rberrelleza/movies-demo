@@ -12,14 +12,14 @@ jobs:
     - name: checkout
       uses: actions/checkout@master
 
-    - uses: okteto/actions/login@master
+    - uses: okteto/actions/login@38bbb36a878694ed03828e5886694ae2f132f857
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
     
-    - uses: okteto/actions/namespace@master
+    - uses: okteto/actions/namespace@38bbb36a878694ed03828e5886694ae2f132f857
     
     - name: Deploy stack
-      uses: okteto/actions/deploy-stack@6c63f0ccb7df32b695cb8ffc8ae1418a5d6bdbd0
+      uses: okteto/actions/deploy-stack@38bbb36a878694ed03828e5886694ae2f132f857
       with:
         build: "true"
         name: "movies-${{ github.event.number }}"
