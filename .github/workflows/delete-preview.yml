@@ -19,6 +19,6 @@ jobs:
     - uses: okteto/actions/namespace@master
     
     - name: Destroy stack
-      uses: okteto/actions/destroy-stack@6c63f0ccb7df32b695cb8ffc8ae1418a5d6bdbd0
+      uses: okteto/actions/destroy-stack@master
       with:
         name: "movies-${{ github.event.number }}"
