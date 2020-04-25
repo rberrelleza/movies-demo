@@ -1,0 +1,34 @@
+on: 
+  pull_request:
+    branches:
+      - master
+
+name: preview
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+
+    - uses: okteto/actions/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+    
+    - uses: okteto/actions/namespace@master
+    
+    - name: Deploy stack
+      uses: okteto/actions/deploy-stack@master
+      with:
+        build: "true"
+        name: "movies-${{ github.event.number }}"
+   
+    - name: comment PR
+      uses: unsplash/comment-on-pr@v1.2.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        msg: "Review the changes live at https://movies-rberrelleza.cloud.okteto.net"
+
+    
