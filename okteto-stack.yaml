@@ -8,12 +8,14 @@ services:
 
   movies-frontend:
     public: false
+    build: frontend
     image: ramiro/movies-frontend
     ports:
       - 80
 
   movies-api:
     public: false
+    build: api
     image: ramiro/movies-api
     environment:
       - MONGODB_USERNAME="okteto"
