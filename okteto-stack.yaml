@@ -15,8 +15,8 @@ services:
 
   movies-api:
     public: false
-    image: ramiro/movies-api
     build: api
+    image: ramiro/movies-api
     environment:
       - MONGODB_USERNAME="okteto"
       - MONGODB_PASSWORD="mongodb123"
